@@ -3,7 +3,7 @@ package main
 // @title William Project API
 // @version 1.0
 // @description William Project API Documentation
-// @host 127.0.0.1:3001
+// @host williamproject-backend-production.up.railway.app
 // @BasePath /api/v1
 // @schemes http
 
@@ -28,7 +28,7 @@ func main() {
 
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "*",
-		AllowMethods: "GET,POST,DELETE",
+		AllowMethods: "GET,POST,DELETE,OPTIONS",
 		AllowHeaders: "*",
 	}))
 

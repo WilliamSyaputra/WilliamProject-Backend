@@ -1,5 +1,5 @@
 basePath: /api/v1
-host: 127.0.0.1:3001
+host: williamproject-backend-production.up.railway.app
 info:
   contact: {}
   description: William Project API Documentation

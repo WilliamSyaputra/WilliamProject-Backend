@@ -17,10 +17,7 @@ const docTemplate = `{
     "paths": {
         "/images": {
             "get": {
-                "description": "Mengambil semua gambar yang ada di folder images",
-                "consumes": [
-                    "application/json"
-                ],
+                "description": "Mengambil semua gambar dari folder ` + "`" + `images` + "`" + `",
                 "produces": [
                     "application/json"
                 ],
@@ -37,18 +34,24 @@ const docTemplate = `{
                                 "type": "string"
                             }
                         }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
                     }
                 }
             }
         },
         "/images/{name}": {
             "get": {
-                "description": "Mengambil satu gambar berdasarkan nama",
-                "consumes": [
-                    "application/json"
-                ],
+                "description": "Mengambil gambar berdasarkan nama",
                 "produces": [
-                    "application/json"
+                    "application/octet-stream"
                 ],
                 "tags": [
                     "Images"
@@ -69,14 +72,20 @@ const docTemplate = `{
                         "schema": {
                             "type": "file"
                         }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
                     }
                 }
             },
             "delete": {
                 "description": "Menghapus gambar berdasarkan nama",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -102,13 +111,31 @@ const docTemplate = `{
                                 "type": "string"
                             }
                         }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
                     }
                 }
             }
         },
         "/upload": {
             "post": {
-                "description": "Mengupload gambar ke folder images",
+                "description": "Mengunggah satu file gambar ke folder ` + "`" + `images` + "`" + `",
                 "consumes": [
                     "multipart/form-data"
                 ],
@@ -137,13 +164,31 @@ const docTemplate = `{
                                 "type": "string"
                             }
                         }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
                     }
                 }
             }
         },
         "/uploads": {
             "post": {
-                "description": "Mengupload banyak gambar ke folder images",
+                "description": "Mengunggah banyak gambar sekaligus ke folder ` + "`" + `images` + "`" + `",
                 "consumes": [
                     "multipart/form-data"
                 ],
@@ -153,14 +198,11 @@ const docTemplate = `{
                 "tags": [
                     "Images"
                 ],
-                "summary": "Upload gambar",
+                "summary": "Upload banyak gambar",
                 "parameters": [
                     {
-                        "type": "array",
-                        "items": {
-                            "type": "file"
-                        },
-                        "description": "File Gambar",
+                        "type": "file",
+                        "description": "Daftar File Gambar",
                         "name": "files",
                         "in": "formData",
                         "required": true
@@ -169,6 +211,22 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "type": "object",
                             "additionalProperties": {
@@ -187,7 +245,7 @@ var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "localhost:3001",
 	BasePath:         "/api/v1",
-	Schemes:          []string{},
+	Schemes:          []string{"http"},
 	Title:            "William Project API",
 	Description:      "William Project API Documentation",
 	InfoInstanceName: "swagger",

@@ -1,11 +1,18 @@
 package main
 
+// @title William Project API
+// @version 1.0
+// @description William Project API Documentation
+// @host localhost:3001
+// @BasePath /api/v1
+// @schemes http
+
 import (
 	"log"
 	"os"
 
 	"william/backend/controllers"
-	_ "william/backend/docs" // Import untuk Swagger
+	"william/backend/docs" // Import untuk Swagger
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -16,6 +23,8 @@ import (
 func main() {
 	app := fiber.New()
 	app.Use(logger.New())
+
+	docs.SwaggerInfo.Schemes = []string{"http"}
 
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "*",
@@ -49,5 +58,5 @@ func main() {
 		os.Mkdir("images", os.ModePerm)
 	}
 
-	log.Fatal(app.Listen(":3001"))
+	log.Fatal(app.Listen("0.0.0.0:3001"))
 }

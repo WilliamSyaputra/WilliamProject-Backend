@@ -8,6 +8,14 @@ import (
 )
 
 // get list images
+// GetImages godoc
+// @Summary Lihat daftar gambar
+// @Description Mengambil semua gambar dari folder `images`
+// @Tags Images
+// @Produce json
+// @Success 200 {array} string
+// @Failure 500 {object} map[string]string
+// @Router /images [get]
 func GetImages(c *fiber.Ctx) error {
 	files, err := os.ReadDir("images")
 	if err != nil {
@@ -23,6 +31,15 @@ func GetImages(c *fiber.Ctx) error {
 }
 
 // Get Image by name
+// GetImage godoc
+// @Summary Lihat satu gambar
+// @Description Mengambil gambar berdasarkan nama
+// @Tags Images
+// @Produce application/octet-stream
+// @Param name path string true "Nama Gambar"
+// @Success 200 {file} file
+// @Failure 404 {object} map[string]string
+// @Router /images/{name} [get]
 func GetImage(c *fiber.Ctx) error {
 	name := c.Params("name")
 	path := filepath.Join("images", name)
@@ -37,6 +54,17 @@ func GetImage(c *fiber.Ctx) error {
 }
 
 // Upload Image
+// UploadImage godoc
+// @Summary Upload gambar
+// @Description Mengunggah satu file gambar ke folder `images`
+// @Tags Images
+// @Accept multipart/form-data
+// @Produce json
+// @Param file formData file true "File Gambar"
+// @Success 200 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /upload [post]
 func UploadImage(c *fiber.Ctx) error {
 	file, err := c.FormFile("file")
 	if err != nil {
@@ -52,6 +80,17 @@ func UploadImage(c *fiber.Ctx) error {
 }
 
 // upload multiple
+// UploadImages godoc
+// @Summary Upload banyak gambar
+// @Description Mengunggah banyak gambar sekaligus ke folder `images`
+// @Tags Images
+// @Accept multipart/form-data
+// @Produce json
+// @Param files formData file true "Daftar File Gambar"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /uploads [post]
 func UploadImages(c *fiber.Ctx) error {
 	// Ambil semua file yang diunggah
 	form, err := c.MultipartForm()
@@ -82,6 +121,16 @@ func UploadImages(c *fiber.Ctx) error {
 }
 
 // Delete Image by name
+// DeleteImage godoc
+// @Summary Hapus gambar
+// @Description Menghapus gambar berdasarkan nama
+// @Tags Images
+// @Produce json
+// @Param name path string true "Nama Gambar"
+// @Success 200 {object} map[string]string
+// @Failure 404 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /images/{name} [delete]
 func DeleteImage(c *fiber.Ctx) error {
 	name := c.Params("name")
 	path := filepath.Join("images", name)

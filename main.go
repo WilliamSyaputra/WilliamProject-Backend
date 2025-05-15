@@ -5,7 +5,7 @@ package main
 // @description William Project API Documentation
 // @host williamproject-backend-production.up.railway.app
 // @BasePath /api/v1
-// @schemes http
+// @schemes https
 
 import (
 	"log"
@@ -24,7 +24,7 @@ func main() {
 	app := fiber.New()
 	app.Use(logger.New())
 
-	docs.SwaggerInfo.Schemes = []string{"http"}
+	docs.SwaggerInfo.Schemes = []string{"https"}
 
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "*",

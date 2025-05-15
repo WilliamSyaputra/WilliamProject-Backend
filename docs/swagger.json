@@ -9,7 +9,7 @@
         "contact": {},
         "version": "1.0"
     },
-    "host": "localhost:3001",
+    "host": "127.0.0.1:3001",
     "basePath": "/api/v1",
     "paths": {
         "/images": {
